@@ -41,4 +41,11 @@ ENV PATH=$PATH:$GRADLE_HOME/bin
 
 RUN gradle --version
 
+#ADD LOCAL COPY OF GRADLE ALL
+RUN cd /usr/local && \
+    curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip -o gradle-$GRADLE_VERSION-all.zip
+
+#SET CORDOVA PATH
+ENV CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL=/usr/local/gradle-$GRADLE_VERSION-all.zip
+
 WORKDIR /app
