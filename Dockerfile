@@ -26,7 +26,7 @@ RUN cordova -v
 
 #Install Yarn
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-ENV PATH ${PATH}:/opt/yarn-$YARN_VERSION/bin"
+ENV PATH ${PATH}:/opt/yarn-$YARN_VERSION/bin
 RUN yarn -v
 
 # Install gradle
