@@ -21,15 +21,6 @@ RUN apt-get update && apt-get install -y curl apt-transport-https && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && apt-get install -y yarn
 
-#Alternative
-#RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-#RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-#RUN apt-get update && apt-get install -y yarn
-
-#Alternative
-#RUN touch ${HOME}/.profile
-#RUN curl -o- -L https://yarnpkg.com/install.sh | bash
-
 RUN yarn -v
 
 #Install ionic, cordova
@@ -37,13 +28,16 @@ RUN yarn global add ionic cordova
 RUN ionic -v
 RUN cordova -v
 
-# Set path
-ENV PATH ${PATH}:/usr/local/gradle-$GRADLE_VERSION/bin
-
 # Install gradle
-RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && \
+RUN \
+    cd /usr/local && \
+    curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip -o gradle-$GRADLE_VERSION-bin.zip && \
     unzip gradle-$GRADLE_VERSION-bin.zip && \
-    rm -f gradle-$GRADLE_VERSION-bin.zip
+    rm gradle-$GRADLE_VERSION-bin.zip
+
+# Export some environment variables
+ENV GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION
+ENV PATH=$PATH:$GRADLE_HOME/bin
 
 RUN gradle --version
 
