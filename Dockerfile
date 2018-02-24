@@ -32,8 +32,8 @@ RUN cordova -v
 RUN \
     cd /usr/local && \
     curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip -o gradle-$GRADLE_VERSION-all.zip && \
-    unzip gradle-$GRADLE_VERSION-bin.zip && \
-    rm gradle-$GRADLE_VERSION-bin.zip
+    unzip gradle-$GRADLE_VERSION-all.zip && \
+    rm gradle-$GRADLE_VERSION-all.zip
 
 # Export some environment variables
 ENV GRADLE_HOME=/usr/local/gradle-$GRADLE_VERSION
