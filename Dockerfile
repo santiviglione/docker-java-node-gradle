@@ -2,7 +2,7 @@ FROM ubuntu:17.10
 MAINTAINER Diego R. Antunes
 
 ENV NODE_VERSION 9.6.1
-ENV GRADLE_VERSION 4.1
+ENV GRADLE_VERSION 4.5.1
 
 RUN apt-get upgrade
 RUN apt-get update && apt-get install -y --no-install-recommends \ 
@@ -31,7 +31,7 @@ RUN cordova -v
 # Install gradle
 RUN \
     cd /usr/local && \
-    curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip -o gradle-$GRADLE_VERSION-bin.zip && \
+    curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip -o gradle-$GRADLE_VERSION-all.zip && \
     unzip gradle-$GRADLE_VERSION-bin.zip && \
     rm gradle-$GRADLE_VERSION-bin.zip
 
@@ -41,11 +41,7 @@ ENV PATH=$PATH:$GRADLE_HOME/bin
 
 RUN gradle --version
 
-#ADD LOCAL COPY OF GRADLE ALL
-RUN cd $GRADLE_HOME && \
-    curl -L https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-all.zip -o gradle-$GRADLE_VERSION-all.zip
-
 #SET CORDOVA PATH
-ENV CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL=$GRADLE_HOME/gradle-$GRADLE_VERSION-all.zip
+#ENV CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL=$GRADLE_HOME/gradle-$GRADLE_VERSION-all.zip
 
 WORKDIR /app
