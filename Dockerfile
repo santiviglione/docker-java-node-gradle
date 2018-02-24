@@ -4,8 +4,8 @@ MAINTAINER Diego R. Antunes
 ENV NODE_VERSION 9.6.1
 ENV GRADLE_VERSION 4.1
 
-RUN apt-get update
-RUN apt-get -y install openjdk-8-jdk wget curl unzip xz-utils python build-essential ssh git
+RUN apt-get update && apt-get install -y --no-install-recommends \ 
+    openjdk-8-jdk wget curl unzip xz-utils python build-essential ssh git
 
 # Setup certificates in openjdk-8
 RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
