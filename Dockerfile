@@ -3,7 +3,6 @@ MAINTAINER Diego R. Antunes
 
 ENV NODE_VERSION 9.6.1
 ENV GRADLE_VERSION 4.1
-ENV YARN_VERSION 1.3.2
 
 RUN apt-get upgrade
 RUN apt-get update && apt-get install -y --no-install-recommends \ 
@@ -12,29 +11,34 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Setup certificates in openjdk-8
 RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
-# Set path
-ENV PATH ${PATH}:/usr/local/gradle-$GRADLE_VERSION/bin
-
 # Install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
     apt-get install -y nodejs
 
-#Install ionic, cordova
-RUN npm install -g ionic cordova
-RUN ionic -v
-RUN cordova -v
-
 #Install Yarn
-#RUN curl -o- -L https://yarnpkg.com/install.sh | bash
-#RUN apt-get install --no-install-recommends yarn
-#ENV PATH ${PATH}:${HOME}/.yarn/bin/yarn
-
 RUN apt-get update && apt-get install -y curl apt-transport-https && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && apt-get install -y yarn
 
+#Alternative
+#RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+#RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+#RUN apt-get update && apt-get install -y yarn
+
+#Alternative
+#RUN touch ${HOME}/.profile
+#RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+
 RUN yarn -v
+
+#Install ionic, cordova
+RUN yarn global add ionic cordova
+RUN ionic -v
+RUN cordova -v
+
+# Set path
+ENV PATH ${PATH}:/usr/local/gradle-$GRADLE_VERSION/bin
 
 # Install gradle
 RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip && \
