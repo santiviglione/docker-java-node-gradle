@@ -24,7 +24,7 @@ RUN ionic -v
 RUN cordova -v
 
 #Install Yarn
-RUN apt-get install yarn
+RUN apt-get install -y yarn
 RUN yarn -v
 
 # Install gradle
