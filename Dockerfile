@@ -1,7 +1,7 @@
 FROM ubuntu:16.10
-MAINTAINER Karl J. Overå
+MAINTAINER Diego R. Antunes
 
-ENV NODE_VERSION 8.4.0
+ENV NODE_VERSION 9.6.1
 ENV GRADLE_VERSION 4.1
 
 RUN apt-get update
@@ -14,7 +14,7 @@ RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 ENV PATH ${PATH}:/usr/local/gradle-$GRADLE_VERSION/bin
 
 # Install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
     apt-get install -y nodejs
 
 # Install gradle
