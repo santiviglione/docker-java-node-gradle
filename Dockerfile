@@ -3,7 +3,7 @@ MAINTAINER Diego R. Antunes
 
 ENV NODE_VERSION 9.6.1
 ENV GRADLE_VERSION 4.1
-ENV YARN_VERSION 1.5.0
+ENV YARN_VERSION 1.3.2
 
 RUN apt-get upgrade
 RUN apt-get update && apt-get install -y --no-install-recommends \ 
@@ -25,8 +25,9 @@ RUN ionic -v
 RUN cordova -v
 
 #Install Yarn
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-ENV PATH ${PATH}:/opt/yarn-$YARN_VERSION/bin
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+#RUN apt-get install --no-install-recommends yarn
+#ENV PATH ${PATH}:${HOME}/.yarn
 RUN yarn -v
 
 # Install gradle
